@@ -22,7 +22,7 @@ class Node:
     def __init__(self, data, next=None):
         # Node 안에는 데이터와 주소값이 있다.
         self.data =data
-        self.next = None
+        self.next =next
         
 # Singly Linked List
 # LinkedList 구현.
@@ -32,18 +32,13 @@ class LinkedList:
         self.tail = None
         
     def add(self,data):
+        node = Node(data)
         if not self.head :
-            self.head = Node(data)
-            self.tail = Node(data)
-            return 
+            self.head = node
+            self.tail = node
         else:
-            node = self.head
-            node = self.tail
-            while node.next:
-                node = node.next
-            node.next = Node(data)
-            self.tail = Node(data)
-            return
+            self.tail.next = node
+            self.tail = node
         
     def delete(self , value):
         node = self.head
@@ -51,17 +46,17 @@ class LinkedList:
             self.head = node.next
             return
         
-        isin = True
+        node_exists = False
         
         while node.next:
             if node.next.data == value:
                 node.next = node.next.next
-                isin = False
+                node_exists = True
                 return
             node = node.next
             
         
-        if isin == False:
+        if node_exists == False:
             print("해당 값이 없습니다!")
             return
         
@@ -100,7 +95,7 @@ class LinkedList:
             while node != None:
                 count += 1
                 node = node.next
-            return count
+        return count
                 
                  
 arr = LinkedList()
