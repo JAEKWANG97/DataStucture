@@ -21,42 +21,37 @@ peek(s)	스택의 맨 위 요소를 삭제하지 않고 반환
 '''
 
 class Node:
-    def __init__(self, data , next = None):
+    def __init__(self, data , next = None , previous = None):
         self.data = data
-        self.next = next
+        self.previous = previous
         
 class Stack:
     def __init__(self):
-        self.head = None
-        self.tail = None
+        self.top = None
         
     def isEmpty(self):
-        if self.head is None:
+        if self.top is None:
             return True
         return False
     
     def push(self, data):
         node = Node(data)
         if self.isEmpty():
-            self.head = node
+            self.top = node
         else:
-            self.tail.next = node
-        self.tail = node
-        
+            node.previous = self.top
+            self.top = node
     def pop(self):
         if self.isEmpty():
             return print('스택이 비어있습니다.')
         else:
-            node = self.head
-            while node:
-                if node.next == self.tail:
-                    node.next = None
-                    self.tail = node.next
-                    return node.data
-                node = node.next
+            node= self.top
+            self.top = node.previous
+            node.previous.next = None
+            
     def peek(self):
         if self.isEmpty():
             return ('스택이 비어있습니다.')
         else:
-            return self.tail.data
+            return self.top.data
         
