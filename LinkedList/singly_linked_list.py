@@ -56,7 +56,7 @@ class LinkedList:
             node = node.next
             
         
-        if node_exists == False:
+        if not node_exists:
             print("해당 값이 없습니다!")
             return
         
